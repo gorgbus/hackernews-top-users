@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body style="display: flex; justify-content: flex-start;">
+    <table>
+        <caption style="max-width: 40ch; width: 100%;">Nejaktivnější uživatelé na <a href="https://news.ycombinator.com">news.ycombinator.com</a>{% if period != 'week' %} v období: {{ period }} {% else %} za poslední týden {% endif %}</caption>
+        <thead>
+            <th>Jméno</th>
+            <th>Počet komentářů</th>
+        </thead>
+
+        {% for username, count in users %}
+        <tr>
+            <td>{{ username }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <button style="height: 25px; margin: 5px;" onclick="fetch('/api/users')">aktualizovat data</button>
+
+    <form id="filtr" style="display: flex; flex-direction: column; margin-left: 10px;">
+        <label for="amount">filtrovat za určité období</label>
+
+        <div>
+            <label>Od</label>
+            <input type="date" name="od" id="od">
+        </div>
+
+        <div>
+            <label>Do</label>
+            <input type="date" name="do" id="do">
+        </div>
+    </from>
+
+    <button form="filtr" style="height: 25px; margin: 5px;" type="submit">Filtrovat</button>
+
+    {% if invalid %} <span style="color: red; font-weight: bold;">Invalidní období</span> {% endif %}
+
+    <button type="button" onclick="window.location.href = '/'">Zrušit filtr</button>
+</body>
+</html>
