@@ -63,8 +63,6 @@ def get_users(request):
         do = f"{do} 23:59:59"
 
         if len(od) != 0 and len(do) != 0:
-            period = f"{od[8:10]}.{od[5:7]}. - {do[8:10]}.{do[5:7]}."
-
             od = datetime.datetime.strptime(od, '%Y-%m-%d')
             od = int(time.mktime(od.timetuple()))
 
@@ -76,6 +74,7 @@ def get_users(request):
             if od > do or od < (current - week) or do > current:
                 invalid = True
             else:
+                period = f"{dates['od'][8:10]}.{dates['od'][5:7]}. - {dates['do'][8:10]}.{dates['do'][5:7]}."
                 comments = Comment.objects.filter(time__range=(od, do))
         else:
             invalid = True
