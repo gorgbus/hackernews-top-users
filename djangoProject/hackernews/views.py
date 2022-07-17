@@ -60,9 +60,10 @@ def get_users(request):
     if 'od' and 'do' in dates:
         od = dates['od']
         do = dates['do']
-        do = f"{do} 23:59:59"
 
         if len(od) != 0 and len(do) != 0:
+            do = f"{do} 23:59:59"
+
             od = datetime.datetime.strptime(od, '%Y-%m-%d')
             od = int(time.mktime(od.timetuple()))
 
