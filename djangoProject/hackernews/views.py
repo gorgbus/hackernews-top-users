@@ -69,7 +69,8 @@ def get_users(request):
             do = datetime.datetime.strptime(do, '%Y-%m-%d %H:%M:%S')
             do = int(time.mktime(do.timetuple()))
 
-            week = 1000 * 60 * 60 * 24 * 7
+            week = 60 * 60 * 24 * 7
+            week += 60 * 60 * 24 - 1
 
             if od > do or od < (current - week) or do > current:
                 invalid = True
